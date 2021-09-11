@@ -2,19 +2,19 @@
 
 import java.util.LinkedList;
 
-//¼Ò¼öÃ£±â
-public class findDecimal {
+//ï¿½Ò¼ï¿½Ã£ï¿½ï¿½
+public class findDecimal {//find prime
 	static LinkedList<Integer> list = new LinkedList<>();
 	static boolean visited[];
-	
+
 	public static void main(String[] args) {
 		String numbers = "17";
 		visited = new boolean[numbers.length()];
-		
+
 		for(int i=1; i<=numbers.length(); i++) {
-			dfs(numbers, "", i);//n¹è¿­µéÀÇ ¼ýÀÚ·Î iÀÚ¸´ ¼öÀÚ¸¦ ¸¸µé¾î¶ó.
+			dfs(numbers, "", i);//nï¿½è¿­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú·ï¿½ iï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		}
-		
+
 		int answer =0;
 		for(Integer x : list) {
 			if(isPrime(x)) {
@@ -22,11 +22,11 @@ public class findDecimal {
 			}
 		}
 		System.out.print(answer);
-		
+
 	}
-	
+
 	static void dfs(String numbers, String newNum, int dept) {
-				
+
 		if(newNum.length() == dept) {
 			int num = Integer.parseInt(newNum);
 			if(!list.contains(num)) list.add(num);
@@ -38,17 +38,17 @@ public class findDecimal {
 				visited[i] = true;
 				newNum += numbers.charAt(i);
 				dfs(numbers, newNum, dept);
-				visited[i] = false;//"017"ÀÏ¶§ 01 07 ÇßÀ¸¸é 10 17±×¸®°í 70 71µµ ÇØÁà¾ß ÇÏ´Ï±î. ÇÏ³ª Àü²¨¸¦ false·Î
-				newNum = newNum.substring(0, newNum.length()-1);//¸Ç ³¡¿¡²¨¸¦ Áö¿ì°í »õ·Î ÇÏ±â À§ÇØ
+				visited[i] = false;//"017"ï¿½Ï¶ï¿½ 01 07 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 10 17ï¿½×¸ï¿½ï¿½ï¿½ 70 71ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Ï±ï¿½. ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ falseï¿½ï¿½
+				newNum = newNum.substring(0, newNum.length()-1);//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½
 				}
 			}
 		}
 	}
-	
+
 	static boolean isPrime(int x) {
 		if(x==0 || x==1)
 			return false;
-		for(int i=2; i<x/2+1; i++) {//´Ù¸¥ Ç®ÀÌ->¾ÖÃÊ¿¡ Â¦¼ö °Å¸£±â: i=3; i+=2, Á¦°ö±Ù±îÁö¸¸ ³ª´©·Á¸é i<=sqrt(x), ´ë½Å i=3ºÎÅÍ ÇÏ·Á¸é ¹Ì¸® main¿¡¼­ x=2ÀÎ °æ¿ì answer+=1ÇØÁà¾ßÇÔ.
+		for(int i=2; i<x/2+1; i++) {//ï¿½Ù¸ï¿½ Ç®ï¿½ï¿½->ï¿½ï¿½ï¿½Ê¿ï¿½ Â¦ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½: i=3; i+=2, ï¿½ï¿½ï¿½ï¿½ï¿½Ù±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ i<=sqrt(x), ï¿½ï¿½ï¿½ i=3ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ mainï¿½ï¿½ï¿½ï¿½ x=2ï¿½ï¿½ ï¿½ï¿½ï¿½ answer+=1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 			if(x % i == 0) return false;
 			else continue;
 		}
