@@ -45,6 +45,6 @@ public class kakao_string_zip {
 
 			}
 
-		System.out.print(min);
+		System.out.println(min);
 	}
 }
