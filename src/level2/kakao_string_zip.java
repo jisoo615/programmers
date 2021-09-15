@@ -8,7 +8,7 @@ public class kakao_string_zip {
 
 		String before, next = null;
 		int cnt;
-		int min = s.length();//전체를 한 단위로 압툭할 때
+		int min = s.length();//전체를 한 단위로 압축할 때
 
 		for(int unit=1; unit<=s.length()/2; unit++) {//단위는 1~길이의 1/2과 같거나 작아야 한다.
 		//int unit = 3;
