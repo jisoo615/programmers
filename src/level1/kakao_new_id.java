@@ -1,47 +1,35 @@
 package level1;
 
-import java.util.HashSet;
-
 //https://programmers.co.kr/learn/courses/30/lessons/72410
 public class kakao_new_id {
 
 	public static void main(String[] args) {
-		String new_id = "=.=";
+		String new_id = 	"123_.def";
 		String answer = "";
-		char[] arr = new_id.toCharArray();
 
-		HashSet<Character> set = new HashSet<>();
-		set.add('.');set.add('-');set.add('_');
+		answer = new_id.toLowerCase();
+		System.out.println("1 -> "+answer);
+		answer = answer.replaceAll("[^a-z0-9._-]", "");//정규식 표현
+		System.out.println("1 -> "+answer);
+		answer = answer.replaceAll("[.]{2,}", ".");//.이 2개 이상 인것을 한개로 바꾸기
+		System.out.println("1 -> "+answer);
+		answer = answer.replaceAll("^[.]|[.]$", "");//마침표 처음이나 끝에 있으면 삭제
+		System.out.println("4 -> "+answer);
+		answer = answer.length()==0 ? "a" : answer;//빈문자열이면 a넣어줌
+		System.out.println("1 -> "+answer);
+		answer = answer.length()>=16 ? answer.substring(0, 15) : answer;//subString(start, end)면 start 부터 end-1까지 자름
+		System.out.println("1 -> "+answer);
+		answer = answer.replaceAll("[.]$", "");//.으로 끝나면 제거
+		System.out.println("1 -> "+answer);
 
-		for(char c : arr) {
-			if(c-49 >=0 && c-49 <=10) {//숫자
-				answer += c;
-			}else if(c-65 >=0 && c-65 <=26) {//대문자
-				answer += Character.toLowerCase(c);
-			}
-			else if(c-97 >=0 && c-97 <=26) {//소문자
-				answer += c;
-			}
-			else{
-				if(set.contains(c)) {
-					answer += c;
-				}
-			}
+		if(answer.length() <= 2) {
+			String add="";
+			add = answer.substring(answer.length()-1).repeat(3-answer.length());
+			System.out.println(add);
+			answer += add;
 		}
 
-		if(answer.startsWith(".")) answer.subSequence(1, answer.length()-1);
-		if(answer.endsWith(".")) answer.substring(0, answer.length()-2);
-
-		if(answer.isEmpty()) answer += "a";
-		else if(answer.length() > 15) answer.subSequence(0, 14);
-
-		if(answer.endsWith(".")) answer.subSequence(0, answer.length()-2);
-
-		while(answer.length() < 3) {
-			answer.concat(answer);
-		}
-
-		System.out.print(answer);
+		System.out.println(answer);
 
 	}
 
