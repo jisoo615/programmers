@@ -1,47 +1,30 @@
 package level2;
 
-import java.util.Collections;
-import java.util.LinkedList;
-//효율 테스트 통과 못함
+import java.util.Arrays;
+//https://programmers.co.kr/learn/courses/30/lessons/42577
 public class phonBook {
 
 	public static void main(String[] args) {
-		String[] phone_book = {"123", "456", "789"};
+		String[] phone_book = {"819232312", "976", "119552", "2"};
 
-		LinkedList<String> list = new LinkedList<>();
+		/*LinkedList<String> list = new LinkedList<>();
 		for(String str : phone_book) list.add(str);
 
-		Collections.sort(list, (str1, str2) -> {return str1.length() - str2.length(); });
-		//길이 짧은 것부터 오름차순
+		Collections.sort(list);*/
+		//알파벳 순서대로 정렬
+		Arrays.sort(phone_book);
 		boolean answer = true;
-		int least = list.get(0).length();
-		for(int i=0; i<list.size(); i++) {
-			String prefix = list.get(i);
-			if( least < prefix.length() ) {//더 길어지면 이전 것들을 삭제
-				least = prefix.length();
-				while(i-->=1) {
-					list.removeFirst();
-				}
-			}
 
-			if( !notExist(prefix, list) ) {
-				answer = false;
-			}
+		for(int i=1; i<phone_book.length; i++) {
 
+			String prefix = phone_book[i-1];
+			if( phone_book[i].startsWith(prefix) ) {
+			    answer = false;
+				break;
+			}
 		}
 
 		System.out.print(answer==true? "true" : "false");
-	}
-
-	static boolean notExist(String prefix, LinkedList<String> book) {
-		for(int i=0; i<book.size(); i++) {
-			if(book.get(i).equals(prefix)) continue;
-			if( book.get(i).startsWith(prefix) ) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 
 }
