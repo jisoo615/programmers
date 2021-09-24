@@ -1,6 +1,7 @@
 package weekly_challenge;
 
-import java.util.HashSet;
+import java.util.LinkedList;
+
 //https://programmers.co.kr/learn/courses/30/lessons/86048
 public class enter_leave {
 
@@ -11,27 +12,43 @@ public class enter_leave {
 			//{10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
 		//기댓값 8, 9, 9, 9, 8, 9, 9, 9, 8, 6
 		//기댓값 9, 7, 7, 5, 5, 5, 3, 3, 1, 1
+		int leaveIndex = 0;
 
-		int[] meet = new int[enter.length];
-		int leaveTH = 0;
-		HashSet<Integer> set = new HashSet<>();
+		LinkedList<Integer> list = new LinkedList<>();
+		int[][] graph = new int[enter.length][enter.length];
+
 		for(int i=0; i<enter.length; i++) {
-			set.add(enter[i]);
+			list.add(enter[i]);
 
-			if(set.contains( leave[leaveTH])) {
-				for(int inner : set) meet[ inner-1 ] = Math.max( meet[inner-1], (set.size()-1));
+			while( !list.isEmpty() && list.contains(leave[leaveIndex])) {
+
+				int leavingPerson = leave[leaveIndex];
+				list.remove( list.indexOf(leavingPerson) );
+
+				for(int j=0; j<list.size(); j++) {
+					graph[ leavingPerson-1 ][ list.get(j)-1 ] = 1;
+					graph[ list.get(j)-1 ][ leavingPerson-1 ] = 1;
+				}
+
+				leaveIndex++;
 			}
 
-			while(set.contains( leave[leaveTH] )) {
-				set.remove( leave[leaveTH] );
-				leaveTH += 1;//더이상 회의실에 없는 사람이 나올때까지
-				if(leaveTH >= leave.length) break;
-			}
 		}
 
+		int[] answer = new int[enter.length];
+		for(int i=0; i<graph.length; i++) {
+			int meet = 0;
+			for(int j=0; j<graph.length; j++) {
+				if(graph[i][j] != 0) {
+					meet++;
+				}
+			}
 
-		for(int cnt : meet)
-		System.out.print(cnt+" ");
+			answer[i] = meet;
+		}
+
+		for(int x:answer)
+		System.out.print(x+" ");
 
 	}
 
