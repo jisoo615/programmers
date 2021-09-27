@@ -1,7 +1,7 @@
 package weekly_challenge;
 
 import java.util.LinkedList;
-
+//입실 퇴실
 //https://programmers.co.kr/learn/courses/30/lessons/86048
 public class enter_leave {
 

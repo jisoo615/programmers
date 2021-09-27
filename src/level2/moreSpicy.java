@@ -11,7 +11,7 @@ public class moreSpicy {
 		PriorityQueue<Integer> q = new PriorityQueue<>();
 		for(int x:scoville) q.add(x);
 
-		while(q.peek() < 7) {
+		while(q.peek() < k) {
 			if(q.size()==1) {
 				answer = -1;
 				break;
