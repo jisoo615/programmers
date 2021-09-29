@@ -5,11 +5,15 @@ import java.util.HashMap;
 public class week4th {
 
 	public static void main(String[] args) {
-		String[] table = {"SI JAVA JAVASCRIPT SQL PYTHON C#", "CONTENTS JAVASCRIPT JAVA PYTHON SQL C++", "HARDWARE C C++ PYTHON JAVA JAVASCRIPT", "PORTAL JAVA JAVASCRIPT PYTHON KOTLIN PHP", "GAME C++ C# JAVASCRIPT C JAVA"};
+		String[] table = {"SI JAVA JAVASCRIPT SQL PYTHON C#"
+				, "CONTENTS JAVASCRIPT JAVA PYTHON SQL C++"
+				, "HARDWARE C C++ PYTHON JAVA JAVASCRIPT"
+				, "PORTAL JAVA JAVASCRIPT PYTHON KOTLIN PHP"
+				, "GAME C++ C# JAVASCRIPT C JAVA"};
 		String[] languages = {"PYTHON", "C++", "SQL"};
 		int[] preference = {7,5, 5};
 
-		String answer = "ZZZZZZZZ";
+		String answer = "zzz";
 		int bigPoint = 0;
 		HashMap<String, Integer> map = new HashMap<>();
 
@@ -27,14 +31,20 @@ public class week4th {
 				}
 			}
 
+
 			if(point > bigPoint) {
 				bigPoint = point;
+
+				answer = job[0];
+
+			}else if(point == bigPoint) {
 				answer = answer.compareTo(job[0]) < 0 ? answer : job[0];
 				//str1.compareTo(str2) = str1 - str2 아스키코드 값임
 			}
+
 		}
 
-		System.out.print(answer);
+		System.out.println(answer);
 
 	}
 
