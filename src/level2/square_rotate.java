@@ -25,29 +25,36 @@ public class square_rotate {
 			}
 		}
 
-		int last=0;
-		int min = Integer.MAX_VALUE;
+		int q = 0;
 		for(int[] query : queries) {
-			int x1 = query[0]; int y1 = query[1]; int x2 = query[2]; int y2 = query[3];
+			int x1 = query[0]-1; int y1 = query[1]-1; int x2 = query[2]-1; int y2 = query[3]-1;
 			//근데 이 방식도 아닌것 같음 다시 풀기
-			int temp1 = lastValue(x1, y1, x1, y2, matrix);
-			int temp2 = lastValue(x1, y2, x2, y2, matrix);
-			matrix[x1][y2] = temp1;
-			int temp3 = lastValue(x2, y2, x2, y1, matrix);
-			matrix[x2][y2] = temp2;
-			int temp4 = lastValue(x2, y1, x1, y1, matrix);
-			matrix[x2][y1] = temp3;
-			matrix[x1][y1] = temp4;
+			int temp = matrix[x1][y1];
+			int min = temp;
 
+			for(int i=x1; i<x2; i++) {//왼쪽의 아래에서 위로
+				matrix[i][y1] = matrix[i+1][y1];
+				min = Math.min(min, matrix[i][y1]);
+			}
+			for(int i=y1; i<y2; i++) {//아래쪽의 오른쪽에서 왼쪽으로 이동 저장
+				matrix[x2][i] = matrix[x2][i+1];
+				min = Math.min(min, matrix[x2][i]);
+			}
+			for(int i=x2; i>x1; i--) {//오른쪽의 위에서 아래로
+				matrix[i][y2] = matrix[i-1][y2];
+				min = Math.min(min, matrix[i][y2]);
+			}
+			for(int i=y2; i>y1; i--) {//위쪽의 왼쪽에서 오른쪽으로
+				matrix[x1][i] = matrix[x1][i-1];
+				min = Math.min(min, matrix[x1][i]);
+			}
+			matrix[x1][y1+1] = temp;
+
+			answer[q] = min;
+			q += 1;
 		}
 
 		return answer;
-	}
-
-	public static int lastValue(int x1, int y1, int x2, int y2, int[][] matrix) {
-		int last = 0;
-
-		return last;
 	}
 
 }
