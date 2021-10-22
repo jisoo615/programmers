@@ -11,7 +11,7 @@ public class exchange_bracket {
 
 	static public String solution(String p) {
 
-      if(!p.isEmpty()) {
+      if(!p.isEmpty()) {//isEmpty()로 빈문자열 확인해야됨. ==""로 했다가 안먹힘
 
         int index = indexOf(p)+1;
         String u = p.substring(0, index);
@@ -23,13 +23,14 @@ public class exchange_bracket {
         	return "("+solution(v)+")"+reverse(u);
         }
 
+
       }else {//p==""
     	  return "";
       }
 
     }
 
-	static public String reverse(String s) {
+	static public String reverse(String s) {//첫번째와 마지막 문자 삭제하고 괄호 반대로 바꿔주기
 		String tmp="";
 		s = s.substring(1, s.length()-1);
 		for(int i=0; i<s.length(); i++) {
@@ -39,7 +40,7 @@ public class exchange_bracket {
 		return tmp;
 	}
 
-	static public int indexOf(String p) {
+	static public int indexOf(String p) {//균형이 처음으로 맞춰지는 지점 반환
 		int sum = 0;
         for(int i=0; i<p.length(); i++){
             if(p.charAt(i)=='(') sum += 1;
