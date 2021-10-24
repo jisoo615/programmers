@@ -4,15 +4,7 @@ import java.util.Stack;
 
 public class pick_item {
 
-	static class Player{//코드 1줄부터 컴파일 하기 때문에 Player클래스를 new로 생성하기 전에 선언해줘야 한다, static을 붙여줘야 함
-		int x; int y;
-		public Player(int x, int y) {
-			this.x = x;
-			this.y = y;
-		}
-	}
-
-	public void main(String[] args) {
+	static public void main(String[] args) {
 		int[][] rectangle= {{1,1,7,4},{3,2,5,5},{4,3,6,9},{2,6,8,8}};
 		int characterX =1, characterY= 3;
 		int itemX=7, itemY=8;
@@ -20,8 +12,8 @@ public class pick_item {
 	}
 
 	static public int solution(int[][] rectangle, int characterX, int characterY, int itemX, int itemY) {
-		int startX = characterX, startY = characterY;
-		int endX = itemX, endY = itemY;
+		int startX = characterX*2, startY = characterY*2;
+		int endX = itemX*2, endY = itemY*2;
 
 		boolean[][] matrix = new boolean[105][105];
 		//테두리와 사각형 안에까지 다 true로 지정
@@ -55,9 +47,9 @@ public class pick_item {
 			int x = temp.x; int y = temp.y;
 			if(x==endX && y==endY) {//출발지->아이템
 				result[0] = cnt;
-				break;
 			}
 			matrix[x][y]=false;//지난간 자리는 다시 false
+
 			//아래 넷중 하나에 걸려듬 스택에 넣고 -> 그다음 cnt++ 해주기
 			if(matrix[x+1][y]==true) stack.push(new Player(x+1, y));
 			if(matrix[x][y+1]==true) stack.push(new Player(x, y+1));
@@ -67,6 +59,15 @@ public class pick_item {
 			cnt++;
 		}
 
-		return Math.min( result[0]/2, (result[1]-result[0])/2 );
+		return Math.min( result[0]/2, Math.abs((result[1]-result[0])/2) );
 	}
+
+	static class Player{//코드 1줄부터 컴파일 하기 때문에 Player클래스를 new로 생성하기 전에 선언해줘야 한다, static을 붙여줘야 함
+		int x; int y;
+		public Player(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
+	}
+
 }
