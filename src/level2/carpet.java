@@ -5,19 +5,20 @@ package level2;
 public class carpet {
 
 	public static void main(String[] args) {
-		int brown=16;
-		int yellow=4;
+		int brown=14;
+		int yellow=6;
 		for(int x:solution(brown, yellow)) System.out.print(x+" ");
 
 	}
 
 	static public int[] solution(int brown, int yellow) {
         int total = brown+yellow;
-        int i=1;
-        int width, height;
+        int width, height=2;
         int width_y, height_y;
-        while(i<=total) {
-        	height = total/i;
+
+        while(height<=total) {
+        	height++;//끝애 있으면 continue에 걸려서 실행안되니까 앞으로
+        	if(total%height != 0) continue;
         	width = total/height;
 
         	width_y = width-2;
@@ -26,9 +27,7 @@ public class carpet {
         	if(width_y*height_y==yellow && width_y>=height_y) {
         		return new int[] {width, height};
         	}
-
-        	i++;
         }
-		return new int[] {};
+		return new int[] {0, 0};
     }
 }
