@@ -12,36 +12,52 @@ public class kakao_2021_insertAD {
 	}
 
 	public static String solution(String play_time, String adv_time, String[] logs) {
-        String answer = "";
         String[] play = play_time.split(":");
-        int play_sec = Integer.parseInt(play[0])*360 + Integer.parseInt(play[1])*60 + Integer.parseInt(play[2]);
+        int play_sec = Integer.parseInt(play[0])*3600 + Integer.parseInt(play[1])*60 + Integer.parseInt(play[2]);
         String[] adv = adv_time.split("[:]");
-        int adv_sec = Integer.parseInt(adv[0])*360 + Integer.parseInt(adv[1])*60 + Integer.parseInt(adv[2]);
+        int adv_sec = Integer.parseInt(adv[0])*3600 + Integer.parseInt(adv[1])*60 + Integer.parseInt(adv[2]);
 
-        int[] viewer = new int[100*360+60*60+60];
+        long[] viewer = new long[play_sec];
         for(String log :logs) {
         	String[] arr = log.split("[:-]");//:나 -문자가 있다면 잘라라
         	int sh = Integer.parseInt(arr[0]);
         	int sm = Integer.parseInt(arr[1]);
         	int ss = Integer.parseInt(arr[2]);
-        	int start = sh*360+sm*60+ss;
+        	int start = sh*3600+sm*60+ss;
         	int eh = Integer.parseInt(arr[3]);
         	int em = Integer.parseInt(arr[4]);
         	int es = Integer.parseInt(arr[5]);
-        	int end = eh*360+em*60+es;
+        	int end = eh*3600+em*60+es;
 
         	for(int i=start; i<end; i++) {
         		viewer[i] += 1;
         	}
         }//시간대별 각 동시 시청자 표시만 해둠
 
-        int viewers = 0;
         //광고시간누적시청자수 = 00~광고끝나는시간 - 00~광고시작시간
-        for(int i=adv_sec; i<play_sec; i++) {
-        	//누적 시청자가 많은 구간을 구해라
+        for(int i=1; i<play_sec; i++) {
+        	viewer[i] += viewer[i-1];
         }
 
-        return answer;
+        long viewers = 0;
+        int adv_insert=0;
+        for(int i=1; i<play_sec-adv_sec; i++) {
+        	if(viewers < viewer[i+adv_sec-1] - viewer[i-1]) {
+        		adv_insert = i;
+        		viewers = viewer[i+adv_sec-1] - viewer[i-1];
+        	}
+        }
+
+        StringBuilder sb = new StringBuilder();
+        int hh = adv_insert/3600;
+        adv_insert %= 3600;
+        int mm = adv_insert%60;
+        adv_insert %= 60;
+        int ss = adv_insert;
+        sb.append(hh<10 ? "0"+hh : hh); sb.append(":");
+        sb.append(mm<10 ? "0"+mm : mm); sb.append(":");
+        sb.append(ss<10 ? "0"+ss : ss);
+        return sb.toString();
     }
 
 }
