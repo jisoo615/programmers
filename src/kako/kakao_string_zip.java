@@ -1,4 +1,4 @@
-package level2;
+package kako;
 //https://programmers.co.kr/learn/courses/30/lessons/60057
 public class kakao_string_zip {
 

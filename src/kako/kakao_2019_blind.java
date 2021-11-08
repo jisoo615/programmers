@@ -1,4 +1,4 @@
-package level2;
+package kako;
 //https://programmers.co.kr/learn/courses/30/lessons/42888
 //오픈채팅방 카카오 2019 블라인드
 import java.util.HashMap;
