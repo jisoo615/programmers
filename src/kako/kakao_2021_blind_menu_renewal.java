@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 //https://programmers.co.kr/learn/courses/30/lessons/72411
 //메뉴 리뉴얼
-public class kakaoBlind_2021_menu_renewal {
+public class kakao_2021_blind_menu_renewal {
 
 	public static HashMap<String, Integer> map = new HashMap<>();
 	public static LinkedList<String> combi = new LinkedList<>();
