@@ -1,8 +1,6 @@
 package kako;
-//https://programmers.co.kr/learn/courses/30/lessons/64065
-//카카오 2019 겨울 인턴십
-//튜플
-import java.util.LinkedList;
+
+import java.util.HashMap;
 
 public class kakao_2019_intern_tuple {
 //스킬체크 레벨2문제와 같음 풀었던거 수정해서 풀기
@@ -12,31 +10,20 @@ public class kakao_2019_intern_tuple {
 		}
 
 		static public int[] solution_2(String s) {
-			LinkedList<String> list = new LinkedList<>();
-			String temp ="";
-			boolean isNew = true;
-			s = s.replace(",", "");
-			for(int i=0; i<s.length()-1; i++) {//맨 마지막 }는 검사안도록
-				if(s.charAt(i)=='{') {
-					temp="";
-				}
-				else if(s.charAt(i)-'0'>=0 && s.charAt(i)-'0'<=9){
-					temp += s.charAt(i);
-				}
-				else if(s.charAt(i)=='}') {
-					list.add(temp);
+			//중괄호 없애주고 hashMap에 ,단위로 개수를 추가해줌
+			//가장 많은 개슈의 숫자가 맨 앞임
+			s = s.replace("[{}]", "");
+			String[] arr = s.split(",");
+			HashMap<String, Integer> map = new HashMap<>();
+			for(String num : arr) {
+				if(map.containsKey(num)) {
+					map.put(num, 1);
+				}else {
+					map.put(num, map.get(num)+1);
 				}
 			}
 
-			list.sort((o1, o2)->{
-				return o1.length() - o2.length();
-			});
-			for(String k:list) System.out.println(k);
-
-			StringBuilder sb = new StringBuilder();
-			while(list.size()>0) {
-
-			}
+			String[] arr2 = map.entrySet().toArray();
 
 			return new int[] {};
 		}
