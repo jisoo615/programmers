@@ -20,6 +20,7 @@ public class kakao_2021_blind_rankSearch {
 				"- and backend and senior and - 150",
 				"- and - and - and chicken 100",
 				"- and - and - and - 150"};
+
 		for(int x : solution(info, query)) {
 			System.out.print(x+" ");
 		}
@@ -27,7 +28,7 @@ public class kakao_2021_blind_rankSearch {
 	}
 
 	static public int[] solution(String[] info, String[] query) {
-        int[] answer = {};
+        int[] answer = new int[query.length];
         //해시테이블에 ㅑ info에서 -를 넣은 모든 경우의 수를 key값으로 저장하고, value를 점수로 저장.
         //value 는 integer형의 리스트여야 한다. 같은 키값이 존재할 수 있기에
         boolean[] visited = new boolean[4];
@@ -37,17 +38,15 @@ public class kakao_2021_blind_rankSearch {
     	    combi(str.split(" "), sb, 0);
        }
 
-        for(String q :query) {
-        	String[] temp = q.split("[0-9]+");
-        	int score = Integer.parseInt(temp[1]);
-        	String condition = temp[0].replace(" and ", "");
+        for(int i=0; i<query.length; i++) {
+        	int score = Integer.parseInt(query[i].replaceAll("[a-z-]+", "").strip());
+        	String condition = query[i].replace("and", "").replaceAll("[0-9\\s]+", "");
+    		// 정규식에서 공백은 \\s 로 표현됨
         	if(map.containsKey(condition)) {//찾는 조건이 있다면
         		LinkedList<Integer> scores = map.get(condition);
-        		//findAll(score);
+        		answer[i] = binarySearch(score, scores);
         	}
         }
-
-
 
         return answer;
     }
@@ -73,5 +72,15 @@ public class kakao_2021_blind_rankSearch {
 			sb2.append(arr[index]);
 			combi(arr, sb2, index+1);
 		}
+	}
+
+	public static int binarySearch(int score, LinkedList<Integer> list) {//score 이상인 개수를 반환
+		int left = 0; int right = list.size();
+		while(left<right) {
+			int mid = (left+right)/2;
+			if(list.get(mid)>=score) right = mid;//찾는 수보다 크면 mid포함해서 다시 검색
+			else left = mid+1;//보다 작으면 mid보다 하나 키워서 다시 검색//lower bound
+		}
+		return list.size()-right;//존재하지 않는다면 0명 반환
 	}
 }
