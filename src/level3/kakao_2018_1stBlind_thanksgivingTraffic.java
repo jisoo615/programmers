@@ -1,4 +1,7 @@
 package level3;
+
+import java.util.Arrays;
+
 //https://programmers.co.kr/learn/courses/30/lessons/17676
 //추석 트래픽
 //슬라이딩 윈도우 알고리즘
@@ -16,7 +19,16 @@ public class kakao_2018_1stBlind_thanksgivingTraffic {
 				"2016-09-15 21:00:00.966 0.381s",
 				"2016-09-15 21:00:02.066 2.62s"};*/
 
-		String lines[] = {"2016-09-15 01:00:04.002 2.0s", "2016-09-15 01:00:07.000 2s"};
+		String lines[] = {"2016-09-15 20:59:57.421 0.351s",
+				"2016-09-15 20:59:58.233 1.181s",
+				"2016-09-15 20:59:58.299 0.8s",
+				"2016-09-15 20:59:58.688 1.041s",
+				"2016-09-15 20:59:59.591 1.412s",
+				"2016-09-15 21:00:00.464 1.466s",
+				"2016-09-15 21:00:00.741 1.581s",
+				"2016-09-15 21:00:00.748 2.31s",
+				"2016-09-15 21:00:00.966 0.381s",
+				"2016-09-15 21:00:02.066 2.62s"};
 		System.out.print(solution(lines));
 
 	}
@@ -32,24 +44,24 @@ public class kakao_2018_1stBlind_thanksgivingTraffic {
 			end[i] = hour+minute+second;//millisecond
 			start[i] = end[i] - time + 1;
 		}
-
-		int max = 0, cnt = 0;
+		Arrays.sort(end);
+		int max = 0, cnt;
 		for(int i=0; i<start.length; i++) {//start시간에서 +1초한 지점까지 start들이 그 안에 있다면 ++
-			cnt = 0;
-			int startCheck = start[i];
-			int endCheck = start[i]+999;
-			for(int j=0; j<end.length; j++) {
-				if(startCheck <= start[j] && endCheck >= start[j]) cnt++;//안에 있는 경우
-				else if(startCheck <= end[j] && endCheck >= end[j]) cnt++;
+			cnt=1;
+			for(int j=0; j<i; j++) {
+				if(end[i]-end[j]<=999) cnt++;
+			}
+			max = cnt > max ? cnt:max;
+
+			cnt=1;
+			for(int j=i; j<start.length; j++) {
+				if(end[j]-end[i]<=999) cnt++;
 			}
 
 			/*
-			 * "2016-09-15 01:00:04.002 2.0s", "2016-09-15 01:00:07.000 2s"
-			 * 위의 케이스를 해결하지 못함.
-			 * 첫번째의 end와 두번재의 start의 거리가 1000이 안되어 답이 2가 되어야 함.
-			 * 그러나 이 코드는 모든 지점의 start~start+999만을 탐색하여 결고가 1이 나오게 됨
-			 * 고치기
+			 * 어떤 end나 start던지 간에 다른 트래픽과의 차이가 999가 나면 됨
 			 * */
+
 
 			max = cnt > max ? cnt:max;
 		}
