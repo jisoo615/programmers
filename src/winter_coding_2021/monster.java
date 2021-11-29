@@ -15,7 +15,7 @@ public class monster {
         int defend = Integer.parseInt(charac[2]);
         for(int i=0; i<monsters.length; i++) {
 	        while(stat>0) {
-	        	monsters[i]
+	        	//monsters[i]
 	        }
         }
         return answer;
