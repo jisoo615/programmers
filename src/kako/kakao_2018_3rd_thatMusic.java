@@ -60,6 +60,6 @@ public class kakao_2018_3rd_thatMusic {
 			return m;
 		}
 
-	}
+	}//class Solution end
 
 }
