@@ -15,7 +15,7 @@ public class light_cycle {
 	}
 
 	static class Solution {
-		public static boolean[][] arr;
+		public static boolean[][][] arr;
 		public static char[][] c;
 
 	    public int[] solution(String[] grid) {
@@ -25,8 +25,8 @@ public class light_cycle {
 	        int y = grid[0].length();
 	        int d = 4;
 	        ArrayList<Integer> list = new ArrayList<>();
-	        boolean[][][] arr = new boolean[x][y][d];
-	        char [][] c = new char[x][y];
+	        arr = new boolean[x][y][d];
+	        c = new char[x][y];
 	        for(int i=0; i<x; i++) {
 	        	for(int j=0; j<y; j++) {
 	        		c[i][j] = grid[i].charAt(j);//S L R 을 구분하기 위해(방향)
@@ -37,7 +37,7 @@ public class light_cycle {
 	        	for(int j=0; j<y; j++) {
 	        		for(int k=0; k<d; k++) {
 	        			if(!arr[i][j][k]) {
-	        				int count = cycle(i, j, k, arr);
+	        				int count = cycle(i, j, k);
 	        				if(count>0) list.add(count);
 	        			}
 	        		}
@@ -53,9 +53,9 @@ public class light_cycle {
 	        return answer;
 	    }//solution()
 
-	    public int cycle(int x, int y, int d, boolean[][][] arr) {
+	    public int cycle(int x, int y, int d) {
 	    	int count = 0;
-	    	int[] x_arr = {0, 0, -1, 1 };
+	    	int[] x_arr = {0, 0, -1, 1 };//상 하 좌 우 순서대로임
 	        int[] y_arr = {1, -1, 0, 0};
 
 	    	while(true) {
@@ -67,6 +67,13 @@ public class light_cycle {
 
 	    		char command = c[x][y];
 	    		d = next_d(command, d);
+	    		x += x_arr[d];
+	    		y += y_arr[d];
+
+	    		if(x==-1) x = arr.length-1;
+	    		else if(x==arr.length) x = 0;
+	    		if(y==-1) y = arr[0].length -1;
+	    		else if(y==arr[0].length) y = 0;
 
 	    	}
 
@@ -75,13 +82,29 @@ public class light_cycle {
 
 	    public int next_d(char command, int d) {
 	    	if(command=='L') {
-
+	    		if(d==0) {//상에서 들어오면 오른쪽
+	    			d = 3;
+	    		}else if(d==1) {//하에서 들어오면 왼쪽
+	    			d = 2;
+	    		}else if(d==2) {//좌에서 들어오면 상으로
+	    			d = 0;
+	    		}else if(d==3) {//우에서 들어오면 하로
+	    			d = 1;
+	    		}
 
 	    	}else if(command=='R') {
-
+	    		if(d==0) {//상에서 들어오면 왼쪽
+	    			d = 2;
+	    		}else if(d==1) {//하에서 들어오면 오른쪽
+	    			d = 3;
+	    		}else if(d==2) {//좌에서 들어오면 하로
+	    			d = 1;
+	    		}else if(d==3) {//우에서 들어오면 상으로
+	    			d = 0;
+	    		}
 	    	}
 	    	return d;
-	    }
+	    }//next_d()
 
 	}//class Solution
 
