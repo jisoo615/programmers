@@ -1,30 +1,49 @@
 package level2;
+
 //https://programmers.co.kr/learn/courses/30/lessons/42883
 //큰 수 만들기
-//테스트 10번만 시간초과로 미완성.. 하지만 답을 찾을 수 없음
+//stack으로도 가능함. 참고-테스트케이스10번은 엄청 긴(중간에 같은수가 연속된) 숫자임
 public class makeBigNum {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.print(solution("1924", 2));
+		Solution s = new Solution();
+		System.out.print(s.solution("1924", 2));
 	}
 
-	static public String solution(String number, int k) {
-		String answer = "";
-		int current = 0;
+	static class Solution{
+		//탐욕법 k개를 제거했을때 가장 큰 수를 구하여라.
+		public String solution(String number, int k) {
+			String answer = "";
+			int delNum = k;
+			String suffix = number;//맨 끝에 남은 부분으로, 나중에 answer에 추가하게될 문자열
+			int start = 0;
 
-		for (int i = 0; i < number.length() - k; i++) {
+			while(delNum>0) {
+				char max = '0';
+				int maxPos = 0;
 
-			for (int j = current; j <= i + k; j++) {
-				if (number.charAt(current)< number.charAt(j)) {
-					current = j;
+				if(suffix.length()==delNum) {//지워야할 개수와 남은 개수가 같으면 suffix를 더하지 않고 answer을 리턴
+					return answer;
 				}
+
+				for(int i=0; i<delNum+1; i++) {
+					if(max < suffix.charAt(i)) {
+						max = suffix.charAt(i);
+						maxPos = i;
+						if(max=='9') break;
+					}
+				}
+
+				answer += Character.toString(suffix.charAt(maxPos));
+				suffix = suffix.substring(maxPos+1);
+				delNum -= maxPos;
 			}
 
-			answer += number.charAt(current);
-			current += 1;
+			answer += suffix;
+
+			return answer;
 		}
 
-		return answer;
 	}
 }
