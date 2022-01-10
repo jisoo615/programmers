@@ -17,7 +17,6 @@ public class makeBigNum {
 			String answer = "";
 			int delNum = k;
 			String suffix = number;//맨 끝에 남은 부분으로, 나중에 answer에 추가하게될 문자열
-			int start = 0;
 
 			while(delNum>0) {
 				char max = '0';
