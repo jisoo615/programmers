@@ -1,6 +1,7 @@
 package kako;
 import java.util.LinkedList;
-
+//https://programmers.co.kr/learn/courses/30/lessons/92334
+//카카오 2022 신고결과받기 레벨1
 public class pre_2021_1 {
 
 	public static void main(String[] args) {
