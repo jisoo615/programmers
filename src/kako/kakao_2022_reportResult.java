@@ -15,7 +15,7 @@ public class kakao_2022_reportResult {
 		String[] report= {"muzi frodo","apeach frodo","frodo neo","muzi neo","apeach muzi"};
 		int k = 2;
 		for(int x : s.solution(id_list, report, k)) System.out.println(x);
-
+//이방법은 중복 신고를 걸러내지 못함. 이전 pre_2021_1 버전꺼가 정답임.
 	}
 
 	static class Solution {
