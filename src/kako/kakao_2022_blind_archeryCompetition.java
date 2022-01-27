@@ -1,5 +1,7 @@
 package kako;
-
+//https://programmers.co.kr/learn/courses/30/lessons/92342
+//양궁대회
+//TC8,18틀린 이유 : 같은 점수차가 났을때 적은점수를 많이 맞춘 사람이 이긴다.
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
