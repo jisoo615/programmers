@@ -18,21 +18,30 @@ public class double_priorityQueue {
 	static class Solution {
 	    public int[] solution(String[] operations) {
 	        int[] answer = new int[2];
-	        PriorityQueue<Integer> q = new PriorityQueue<>();
-	        for(String oper : operations) {
-	        	switch(oper.charAt(0)) {
-	        	case 'I':
-	        		q.add(Integer.parseInt(oper.substring(2)));break;
-	        	case 'D':
-	        		if(q.isEmpty()) continue;
-	        		if(oper.charAt(2)=='-')q.poll();
-	        		else q.remove(q.peek());
+	        PriorityQueue<Integer> maxQ = new PriorityQueue<>();//최대큐에는 -를 붙여 넣어서 큰수가 젤앞에오게
+	        PriorityQueue<Integer> minQ = new PriorityQueue<>();//최소큐에는 그냥 넣어서 최소가 젤앞에오게
+	        for(String operation : operations) {
+	        	String[] oper = operation.split(" ");
+	        	int digit = Integer.parseInt(oper[1]);
+	        	switch(oper[0]) {
+	        	case "I":
+	        		maxQ.add(digit*-1);
+	        		minQ.add(digit);
+	        		break;
+
+	        	case "D":
+	        		if(maxQ.isEmpty()&&minQ.isEmpty()) continue;
+	        		if(digit==-1) {//최솟값 삭제
+	        			maxQ.remove(minQ.poll()*-1);
+	        		}else {//digit==1
+	        			minQ.remove(maxQ.poll()*-1);//최댓값 삭제
+	        		}
 	        	}
 	        }
 
-	        if(q.isEmpty()) return new int[] {0, 0};
-	        answer[1]=q.poll(); answer[0]=q.poll();
-	        return answer;
+	        if(maxQ.isEmpty()) return new int[] {0, 0};
+	        answer[0]=maxQ.poll()*-1; answer[1]=minQ.poll();
+	        return answer;//최대, 최솟값
 	    }
 	}
 
