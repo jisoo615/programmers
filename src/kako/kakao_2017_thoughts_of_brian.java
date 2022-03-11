@@ -77,7 +77,7 @@ public class kakao_2017_thoughts_of_brian {
 	        		if(rule==2)return invalid;//규칙2오류 - 한 단어에 같은 규칙 2번 적용
 	        		continue;// 규칙2 안에 규칙1
 	        	}
-	        	if(end_word_pre >= end_word)return invalid;// 단어범위 넘어감 오류
+	        	if(end_word_pre >= start_word)return invalid;// 단어범위 넘어감 오류
 
 	        	words.add(new Word(rule, start_word, end_word));
 	        	start_char_pre = start_char;
