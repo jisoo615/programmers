@@ -2,4 +2,5 @@
 .settings/
 .classpath
 .project
-/hs_err_pid17444.log
+/.metadata/
+.idea/
